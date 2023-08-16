@@ -1,0 +1,14 @@
+.main {
+  height: 100%;
+
+  display: grid;
+  grid-template-rows: 10% auto 10%;
+  grid-template-columns: 1fr;
+
+  justify-items: center;
+}
+
+#root {
+  width: 100svw;
+  height: 95svh;
+}
