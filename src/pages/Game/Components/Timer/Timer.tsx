@@ -22,7 +22,8 @@ const Timer: FC = () => {
         dispatch(actions.tick());
       }
       if (seconds === 0) {
-        navigate('/');
+        dispatch(actions.nextTeam());
+        navigate('/start');
       }
     }, 1000);
 

@@ -27,7 +27,7 @@ const Layout: FC<LayoutProps> = ({
         <Col span={24}>{topRow}</Col>
       </Row>
       <Row className={b('middle-section').toString()} align="middle" justify="center">
-        <Col>{middleRow}</Col>
+        <Col span={24}>{middleRow}</Col>
       </Row>
       <Row className={b('bottom-section').toString()} align="middle" justify="center">
         <Col span={24}>

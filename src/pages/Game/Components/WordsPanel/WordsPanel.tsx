@@ -11,7 +11,6 @@ const WordsPanel: FC = () => {
   const word = useAppSelector(getCurrentWord);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(actions.addWords());
     dispatch(actions.nextWord());
   }, [dispatch]);
 
