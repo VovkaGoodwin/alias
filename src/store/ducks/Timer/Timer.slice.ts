@@ -9,7 +9,7 @@ type TimerState = {
 const initialState: TimerState = {
   currentRoundTime: 0,
   timerEnabled: true,
-  settingsTime: 60,
+  settingsTime: 5,
 };
 
 

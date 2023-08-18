@@ -14,19 +14,23 @@ const Start: FC = () => {
   const dispatch = useAppDispatch();
   const teamId = useAppSelector(getActiveTeam);
 
-  useEffect(() => () => {
-    batch(() => {
-      dispatch(actions.timer.setupTimer());
-      if (teamId === null) {
-        dispatch(actions.words.add());
-        dispatch(actions.teams.next());
-      }
-    });
+  useEffect(() => {
+    if (teamId === 'XXX') {
+      navigate('/endgame');
+    }
+    return () => {
+      batch(() => {
+        dispatch(actions.timer.setupTimer());
+        if (teamId === null) {
+          dispatch(actions.words.add());
+          dispatch(actions.teams.next());
+        }
+      });
+    };
   }, []);
 
   const next = useCallback(() => {
     navigate('/game');
-    //todo переход в начало если игра закончена
   }, []);
 
   return (

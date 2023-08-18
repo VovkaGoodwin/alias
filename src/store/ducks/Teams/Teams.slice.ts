@@ -10,18 +10,16 @@ type State = {
   score: number,
   teams: Team[],
   activeTeam: string | null;
-  settings: {
-    winCondition: number
-  }
+  winCondition: number,
+  hasWinner: boolean,
 }
 
 const initialState: State = {
   score: 0,
   teams: [],
   activeTeam: null,
-  settings: {
-    winCondition: 25,
-  }
+  winCondition: 10,
+  hasWinner: false
 };
 
 let teamsGenerator: Generator<string, any, boolean>;
@@ -43,12 +41,16 @@ const TeamsSlice = createSlice({
     remove: (state, action: PayloadAction<string>) => {
       state.teams = state.teams.filter((t) => t.id !== action.payload);
     },
-    next: (state, action: PayloadAction<false | undefined>) => {
+    next: (state) => {
       if (teamsGenerator === undefined) {
         teamsGenerator = nextTeam(state.teams);
       }
-      const play = action.payload ?? true;
-      const nextTeamId = teamsGenerator.next(play);
+      if (!state.hasWinner
+        && (state.teams.find((t) => t.id === state.activeTeam)?.score ?? 0) >= state.winCondition
+      ) {
+        state.hasWinner = true;
+      }
+      const nextTeamId = teamsGenerator.next(!state.hasWinner);
       state.activeTeam = nextTeamId.value;
     }
   }
@@ -62,6 +64,7 @@ function* nextTeam(teams: Team[]) {
       play = yield ids[i];
     }
   }
+  return 'XXX';
 }
 
 export default TeamsSlice;
