@@ -4,6 +4,7 @@ import useModal from 'antd/es/modal/useModal';
 import type { FC } from 'react';
 import { useAppDispatch } from '../../../../store';
 import { actions } from '../../../../store/ducks/game/reducer.ts';
+import { TeamOutlined } from '@ant-design/icons';
 
 const AddTeam: FC = () => {
   const dispatch = useAppDispatch();
@@ -16,6 +17,7 @@ const AddTeam: FC = () => {
       content: (
         <Form
           form={form}
+          preserve={false}
           onFinish={({ teamName }) => {
             dispatch(actions.addTeam({
               id: nanoid(),
@@ -30,7 +32,8 @@ const AddTeam: FC = () => {
       ),
       onOk: () => {
         form.submit();
-      }
+      },
+      icon: (<TeamOutlined />)
     });
   };
 

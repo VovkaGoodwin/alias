@@ -1,3 +1,5 @@
+import { Word } from './types.ts';
+
 export default [
   { id: 1, group: 'Персонажи', title: 'Корбан Яксли' },
   { id: 2, group: 'Персонажи', title: 'Джон Долиш' },
@@ -324,4 +326,4 @@ export default [
   { id: 323, group: 'Вещи', title: 'Волшебная палочка' },
   { id: 324, group: 'Понятия', title: 'Квиддич' },
   { id: 325, group: 'Персонажи', title: 'Галатея Вилкост' }
-];
+] as Word[];
