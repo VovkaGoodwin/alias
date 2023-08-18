@@ -27,7 +27,7 @@ const initialState: State = {
 let teamsGenerator: Generator<string, any, boolean>;
 
 const TeamsSlice = createSlice({
-  name: 'alias/words',
+  name: 'alias/teams',
   initialState: initialState,
   reducers: {
     increaseScore: (state) => {
