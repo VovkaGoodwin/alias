@@ -16,11 +16,11 @@ const WordsSlice = createSlice({
   name: 'alias/words',
   initialState,
   reducers: {
-    addWords: (state) => {
+    add: (state) => {
       state.words = [...words];
       state.words.sort((() => Math.random() - .5));
     },
-    nextWord: (state) => {
+    next: (state) => {
       state.currentWord = state.words.pop() ?? null;
     },
   }

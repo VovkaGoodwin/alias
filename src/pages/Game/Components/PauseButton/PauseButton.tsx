@@ -1,17 +1,17 @@
 import { PauseOutlined, RightOutlined } from '@ant-design/icons';
 import { Button } from 'antd';
 import type { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../store';
-import { actions } from '../../../../store/ducks/game/reducer.ts';
+import { useAppDispatch, useAppSelector, actions, AppSelector } from '@/store';
+
+const getTimerState: AppSelector<boolean> = (state) => state.timer.timerEnabled;
 
 const PauseButton: FC = () => {
   const dispatch = useAppDispatch();
-  const paused = useAppSelector(state => state.words.timerEnabled);
+  const paused = useAppSelector(getTimerState);
   return (
     <Button
-      onClick={() => dispatch(actions.toggleTimer())}
+      onClick={() => dispatch(actions.timer.toggleTimer())}
       icon={paused ? <PauseOutlined /> : <RightOutlined />}
-
     />
   );
 };

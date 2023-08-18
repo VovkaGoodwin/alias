@@ -2,8 +2,7 @@ import { Typography } from 'antd';
 import block from 'bem-cn';
 import { useEffect } from 'react';
 import type { FC } from 'react';
-import { RootState, useAppDispatch, useAppSelector } from '../../../../store';
-import { actions } from '../../../../store/ducks/game/reducer.ts';
+import { RootState, useAppDispatch, useAppSelector, actions } from '@/store';
 import './WordsPanel.scss';
 
 const b = block('words-panel');
@@ -13,7 +12,7 @@ const WordsPanel: FC = () => {
   const word = useAppSelector(getCurrentWord);
   const dispatch = useAppDispatch();
   useEffect(() => {
-    dispatch(actions.nextWord());
+    dispatch(actions.words.next());
   }, [dispatch]);
 
   if (word === null) {

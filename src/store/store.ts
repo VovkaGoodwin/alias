@@ -1,11 +1,8 @@
 import { configureStore } from '@reduxjs/toolkit';
-import wordsReducer from './ducks/game/reducer';
 import rootReducer from './ducks/rootReducer.ts';
 
 const store = configureStore({
-  reducer: {
-    words: wordsReducer
-  }
+  reducer: rootReducer
 });
 
 export default store;

@@ -2,8 +2,7 @@ import { Button, Col, Row } from 'antd';
 
 import type { FC } from 'react';
 import { batch } from 'react-redux';
-import { useAppDispatch } from '../../../../store';
-import { actions } from '../../../../store/ducks/game/reducer.ts';
+import { useAppDispatch, actions } from '@/store';
 
 const BottomRow: FC = () => {
   const dispatch = useAppDispatch();
@@ -11,13 +10,13 @@ const BottomRow: FC = () => {
   return (
     <Row gutter={10}>
       <Col span={6}>
-        <Button danger block size="large" onClick={() => dispatch(actions.nextWord())}>Нет</Button>
+        <Button danger block size="large" onClick={() => dispatch(actions.words.next())}>Нет</Button>
       </Col>
       <Col span={18}>
         <Button type="primary" block size="large" onClick={() => {
           batch(() => {
-            dispatch(actions.nextWord());
-            dispatch(actions.increaseScore());
+            dispatch(actions.words.next());
+            dispatch(actions.teams.increaseScore());
           });
         }}>Да</Button>
       </Col>

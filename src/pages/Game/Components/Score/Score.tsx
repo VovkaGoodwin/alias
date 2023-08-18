@@ -1,9 +1,9 @@
 import type { FC } from 'react';
-import { useAppSelector } from '../../../../store';
-import type { AppSelector } from '../../../../store';
+import { useAppSelector } from '@/store';
+import type { AppSelector } from '@/store';
 
 const getScore: AppSelector<number> = (state) => {
-  const { activeTeam, teams } = state.words;
+  const { activeTeam, teams } = state.teams;
   if (activeTeam !== null) {
     return teams.find(({ id }) => id === activeTeam)?.score ?? 0;
   }

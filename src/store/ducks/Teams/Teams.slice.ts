@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
 
 type Team = {
   id: string,
@@ -24,31 +24,31 @@ const initialState: State = {
   }
 };
 
-let teamsGenerator: Generator<string>;
+let teamsGenerator: Generator<string, any, boolean>;
 
-const DictionarySlice = createSlice({
+const TeamsSlice = createSlice({
   name: 'alias/words',
   initialState: initialState,
   reducers: {
     increaseScore: (state) => {
       state.teams.find((t) => t.id === state.activeTeam)!.score +=1;
     },
-    addTeam: (state, action: PayloadAction<{id: string, name:string}>) => {
-      const { id, name } = action.payload;
+    add: (state, action: PayloadAction<string>) => {
       state.teams.push({
-        id,
-        name,
+        id: nanoid(),
+        name: action.payload,
         score: 0,
       });
     },
-    removeTeam: (state, action: PayloadAction<string>) => {
+    remove: (state, action: PayloadAction<string>) => {
       state.teams = state.teams.filter((t) => t.id !== action.payload);
     },
-    nextTeam: (state) => {
+    next: (state, action: PayloadAction<false | undefined>) => {
       if (teamsGenerator === undefined) {
         teamsGenerator = nextTeam(state.teams);
       }
-      const nextTeamId = teamsGenerator.next();
+      const play = action.payload ?? true;
+      const nextTeamId = teamsGenerator.next(play);
       state.activeTeam = nextTeamId.value;
     }
   }
@@ -56,12 +56,13 @@ const DictionarySlice = createSlice({
 
 function* nextTeam(teams: Team[]) {
   const ids = teams.map(({ id }) => id);
-  while (true) {
+  let play = true;
+  while (play) {
     for (let i = 0; i < ids.length; i++) {
-      yield ids[i];
+      play = yield ids[i];
     }
   }
 }
 
-export default DictionarySlice.reducer;
-export const actions = DictionarySlice.actions;
+export default TeamsSlice;
+export const teamsActions = TeamsSlice.actions;

@@ -3,22 +3,23 @@ import { useCallback, useEffect } from 'react';
 import type { FC } from 'react';
 import { batch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useAppDispatch, useAppSelector } from '../../store';
-import { actions } from '../../store/ducks/game/reducer.ts';
+import { useAppDispatch, useAppSelector, actions, RootState } from '@/store';
 import Layout from '../../widget/Layout';
 import TeamsList from './Components/TeamsList/TeamsList.tsx';
+
+const getActiveTeam = (state: RootState) => state.teams.activeTeam;
 
 const Start: FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  const teamId = useAppSelector((state) => state.words.activeTeam);
+  const teamId = useAppSelector(getActiveTeam);
 
   useEffect(() => () => {
     batch(() => {
-      dispatch(actions.setupTimer());
+      dispatch(actions.timer.setupTimer());
       if (teamId === null) {
-        dispatch(actions.addWords());
-        dispatch(actions.nextTeam());
+        dispatch(actions.words.add());
+        dispatch(actions.teams.next());
       }
     });
   }, []);

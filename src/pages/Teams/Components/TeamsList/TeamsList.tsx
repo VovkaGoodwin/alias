@@ -1,11 +1,12 @@
 import { Avatar, Button, List } from 'antd';
 import type { FC } from 'react';
-import { useAppDispatch, useAppSelector } from '../../../../store';
-import { actions } from '../../../../store/ducks/game/reducer.ts';
+import { RootState, useAppDispatch, useAppSelector, actions } from '@/store';
 import AddTeam from '../AddTeam/AddTeam.tsx';
 
+const getTeams = (state: RootState) => state.teams.teams;
+
 const TeamsList: FC = () => {
-  const teams = useAppSelector(state => state.words.teams);
+  const teams = useAppSelector(getTeams);
   const dispatch = useAppDispatch();
 
   return (
@@ -16,7 +17,7 @@ const TeamsList: FC = () => {
         <List.Item
           key={team.id}
           actions={[
-            <Button danger shape="circle" onClick={() => dispatch(actions.removeTeam(team.id))}>
+            <Button danger shape="circle" onClick={() => dispatch(actions.teams.remove(team.id))}>
               X
             </Button>
           ]}

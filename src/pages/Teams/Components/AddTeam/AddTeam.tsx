@@ -1,9 +1,7 @@
-import { nanoid } from '@reduxjs/toolkit';
 import { Button, Form, Input, Row } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 import type { FC } from 'react';
-import { useAppDispatch } from '../../../../store';
-import { actions } from '../../../../store/ducks/game/reducer.ts';
+import { useAppDispatch, actions } from '../../../../store';
 import { TeamOutlined } from '@ant-design/icons';
 
 const AddTeam: FC = () => {
@@ -19,10 +17,7 @@ const AddTeam: FC = () => {
           form={form}
           preserve={false}
           onFinish={({ teamName }) => {
-            dispatch(actions.addTeam({
-              id: nanoid(),
-              name: teamName,
-            }));
+            dispatch(actions.teams.add(teamName));
           }}
         >
           <Form.Item name="teamName" rules={[{ required: true }]}>

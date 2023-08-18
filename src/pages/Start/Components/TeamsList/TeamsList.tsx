@@ -1,9 +1,10 @@
 import { Avatar, List } from 'antd';
 import type { FC } from 'react';
-import { useAppSelector } from '../../../../store';
+import { RootState, useAppSelector } from '@/store';
 
+const getTeamsList = (state: RootState) => state.teams.teams;
 const TeamsList: FC = () => {
-  const teams = useAppSelector(state => state.words.teams);
+  const teams = useAppSelector(getTeamsList);
 
   return (
     <List

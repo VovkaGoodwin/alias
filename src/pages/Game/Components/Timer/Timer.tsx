@@ -3,26 +3,24 @@ import { Progress } from 'antd';
 
 import type { FC } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { AppSelector, useAppSelector } from '../../../../store';
-import { actions } from '../../../../store/ducks/game/reducer.ts';
-import useAppDisaptch from '../../../../store/hooks/useAppDisaptch.ts';
+import { AppSelector, useAppSelector, actions, useAppDispatch } from '@/store';
 
-const getSeconds: AppSelector<number> = (state) => state.words.timer;
-const getTimerState: AppSelector<boolean> = (state) => state.words.timerEnabled;
+const getSeconds: AppSelector<number> = (state) => state.timer.currentRoundTime;
+const getTimerState: AppSelector<boolean> = (state) => state.timer.timerEnabled;
 
 const Timer: FC = () => {
   const navigate = useNavigate();
   const seconds = useAppSelector(getSeconds);
   const timerEnabled = useAppSelector(getTimerState);
-  const dispatch = useAppDisaptch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const timerId = setInterval(() => {
       if (timerEnabled) {
-        dispatch(actions.tick());
+        dispatch(actions.timer.tick());
       }
       if (seconds === 0) {
-        dispatch(actions.nextTeam());
+        dispatch(actions.teams.next());
         navigate('/start');
       }
     }, 1000);
