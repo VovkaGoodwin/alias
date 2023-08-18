@@ -7,10 +7,16 @@ type Team = {
   score: number,
 }
 
+type Word = {
+  id: number,
+  group: string,
+  title: string
+}
+
 type State = {
   score: number,
-  words: string[],
-  currentWord: null | string,
+  words: Word[],
+  currentWord: null | Word,
   timer: number,
   timerEnabled: boolean,
   teams: Team[],
