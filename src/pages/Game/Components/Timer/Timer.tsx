@@ -19,9 +19,9 @@ const Timer: FC = () => {
       if (timerEnabled) {
         dispatch(actions.timer.tick());
       }
-      if (seconds === 0) {
-        dispatch(actions.teams.next());
-        navigate('/start');
+      if (seconds === 1) {
+        dispatch(actions.timer.stopTimer());
+        dispatch(actions.timer.setRoundState(true));
       }
     }, 1000);
 

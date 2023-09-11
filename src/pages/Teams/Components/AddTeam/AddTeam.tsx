@@ -1,3 +1,4 @@
+import { nanoid } from '@reduxjs/toolkit';
 import { Button, Form, Input, Row } from 'antd';
 import useModal from 'antd/es/modal/useModal';
 import type { FC } from 'react';
@@ -17,7 +18,10 @@ const AddTeam: FC = () => {
           form={form}
           preserve={false}
           onFinish={({ teamName }) => {
-            dispatch(actions.teams.add(teamName));
+            dispatch(actions.teams.add({
+              name: teamName,
+              id: nanoid()
+            }));
           }}
         >
           <Form.Item name="teamName" rules={[{ required: true }]}>

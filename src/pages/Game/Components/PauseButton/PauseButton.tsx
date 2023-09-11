@@ -8,9 +8,18 @@ const getTimerState: AppSelector<boolean> = (state) => state.timer.timerEnabled;
 const PauseButton: FC = () => {
   const dispatch = useAppDispatch();
   const paused = useAppSelector(getTimerState);
+
+  const toggleTimer = () => {
+    if (paused) {
+      dispatch(actions.timer.startTimer());
+    } else {
+      dispatch(actions.timer.stopTimer());
+    }
+  };
+
   return (
     <Button
-      onClick={() => dispatch(actions.timer.toggleTimer())}
+      onClick={toggleTimer}
       icon={paused ? <PauseOutlined /> : <RightOutlined />}
     />
   );

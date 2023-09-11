@@ -3,13 +3,15 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 type TimerState = {
   currentRoundTime: number,
   timerEnabled: boolean,
-  settingsTime: number
+  settingsTime: number,
+  roundFinished: boolean,
 }
 
 const initialState: TimerState = {
   currentRoundTime: 0,
   timerEnabled: true,
   settingsTime: 5,
+  roundFinished: false
 };
 
 
@@ -22,14 +24,20 @@ const TimerSlice = createSlice({
         state.currentRoundTime -= 1;
       }
     },
-    toggleTimer: (state) => {
-      state.timerEnabled = !state.timerEnabled;
-    },
     setupTimer: (state) => {
       state.currentRoundTime = state.settingsTime;
     },
     setRoundTime: (state, action: PayloadAction<number>) => {
       state.settingsTime = action.payload;
+    },
+    setRoundState: (state, action: PayloadAction<boolean>) => {
+      state.roundFinished = action.payload;
+    },
+    startTimer: (state) => {
+      state.timerEnabled = true;
+    },
+    stopTimer: (state) => {
+      state.timerEnabled = false;
     }
   }
 });

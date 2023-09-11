@@ -21,15 +21,17 @@ const Start: FC = () => {
     return () => {
       batch(() => {
         dispatch(actions.timer.setupTimer());
+        dispatch(actions.timer.setRoundState(false));
         if (teamId === null) {
           dispatch(actions.words.add());
           dispatch(actions.teams.next());
         }
       });
     };
-  }, []);
+  }, [teamId]);
 
   const next = useCallback(() => {
+    dispatch(actions.timer.startTimer());
     navigate('/game');
   }, []);
 

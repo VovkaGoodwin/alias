@@ -16,25 +16,33 @@ type State = {
 
 const initialState: State = {
   score: 0,
-  teams: [],
+  teams: [{
+    id: nanoid(),
+    name: nanoid(),
+    score: 0
+  },{
+    id: nanoid(),
+    name: nanoid(),
+    score: 0
+  }],
   activeTeam: null,
   winCondition: 10,
   hasWinner: false
 };
 
-let teamsGenerator: Generator<string, any, boolean>;
+let teamsGenerator: Generator<string, string, boolean>;
 
 const TeamsSlice = createSlice({
   name: 'alias/teams',
   initialState: initialState,
   reducers: {
     increaseScore: (state) => {
-      state.teams.find((t) => t.id === state.activeTeam)!.score +=1;
+      (state.teams.find((t) => t.id === state.activeTeam) as Team).score +=1;
     },
-    add: (state, action: PayloadAction<string>) => {
+    add: (state, action: PayloadAction<{name: string, id: string}>) => {
       state.teams.push({
-        id: nanoid(),
-        name: action.payload,
+        id: action.payload.id,
+        name: action.payload.name,
         score: 0,
       });
     },
@@ -52,6 +60,18 @@ const TeamsSlice = createSlice({
       }
       const nextTeamId = teamsGenerator.next(!state.hasWinner);
       state.activeTeam = nextTeamId.value;
+    },
+    reset: (state) => {
+      state.teams = state.teams.map((team) => ({
+        id: team.id,
+        name: team.name,
+        score: 0
+      }));
+      state.activeTeam = initialState.activeTeam;
+      state.score = initialState.score;
+      state.hasWinner = initialState.hasWinner;
+      state.winCondition = initialState.winCondition;
+      teamsGenerator = nextTeam(state.teams);
     }
   }
 });
