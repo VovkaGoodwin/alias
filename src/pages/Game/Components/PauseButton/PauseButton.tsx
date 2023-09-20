@@ -11,9 +11,9 @@ const PauseButton: FC = () => {
 
   const toggleTimer = () => {
     if (paused) {
-      dispatch(actions.timer.startTimer());
-    } else {
       dispatch(actions.timer.stopTimer());
+    } else {
+      dispatch(actions.timer.startTimer());
     }
   };
 
