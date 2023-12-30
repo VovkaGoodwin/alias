@@ -1,4 +1,4 @@
-import { createSlice, nanoid, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 type Team = {
   id: string,
@@ -16,17 +16,9 @@ type State = {
 
 const initialState: State = {
   score: 0,
-  teams: [{
-    id: nanoid(),
-    name: nanoid(),
-    score: 0
-  },{
-    id: nanoid(),
-    name: nanoid(),
-    score: 0
-  }],
+  teams: [],
   activeTeam: null,
-  winCondition: 10,
+  winCondition: 50,
   hasWinner: false
 };
 

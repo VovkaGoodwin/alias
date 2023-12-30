@@ -1,27 +1,34 @@
 import { PauseOutlined, RightOutlined } from '@ant-design/icons';
-import { Button } from 'antd';
+import { Button, Modal } from 'antd';
 import type { FC } from 'react';
-import { useAppDispatch, useAppSelector, actions, AppSelector } from '@/store';
+import { useAppDispatch, useAppSelector, actions, type AppSelector } from '@/store';
 
 const getTimerState: AppSelector<boolean> = (state) => state.timer.timerEnabled;
 
 const PauseButton: FC = () => {
   const dispatch = useAppDispatch();
   const paused = useAppSelector(getTimerState);
+  const [modal, contextHolder] = Modal.useModal();
 
-  const toggleTimer = () => {
-    if (paused) {
-      dispatch(actions.timer.stopTimer());
-    } else {
-      dispatch(actions.timer.startTimer());
-    }
+  const onClickPauseButtonHandler = () => {
+    dispatch(actions.timer.stopTimer());
+    modal.info({
+      content: 'Игра приостановлена',
+      onOk: () => {
+        dispatch(actions.timer.startTimer());
+      },
+      okText: 'Продоложить'
+    });
   };
 
   return (
-    <Button
-      onClick={toggleTimer}
-      icon={paused ? <PauseOutlined /> : <RightOutlined />}
-    />
+    <>
+      {contextHolder}
+      <Button
+        onClick={onClickPauseButtonHandler}
+        icon={paused ? <PauseOutlined /> : <RightOutlined />}
+      />
+    </>
   );
 };
 

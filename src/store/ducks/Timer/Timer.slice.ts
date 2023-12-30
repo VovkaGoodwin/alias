@@ -1,4 +1,4 @@
-import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
 
 type TimerState = {
   currentRoundTime: number,
@@ -10,7 +10,7 @@ type TimerState = {
 const initialState: TimerState = {
   currentRoundTime: 0,
   timerEnabled: true,
-  settingsTime: 5,
+  settingsTime: 60,
   roundFinished: false
 };
 
